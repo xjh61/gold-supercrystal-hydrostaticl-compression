@@ -1,0 +1,815 @@
+##########################################################
+###  LAMMPS input file for gold-alkanethiol nanoparticles
+###  United Atom Model Simulation using Paul et al's Model
+###  Written by Wenbin Li, MIT, Nov 2013
+#########################################################
+
+########################################################
+###  General Simulation Setup
+
+dimension        3
+boundary         p p p
+
+units            real
+atom_style       molecular
+
+read_restart restart.1000000.nano
+
+pair_style       hybrid morse 10.0 lj/cut 10.0
+pair_modify      shift yes
+bond_style       harmonic
+angle_style      cosine/squared
+dihedral_style   opls
+
+
+######################################################
+###  Setting Force Field Parameters
+###  Atom type and symbol: 1-Au 2-S 3-CH2 4-CH3
+
+###  Gold-Gold interaction
+pair_coeff       1 1 morse  10.956 1.5830 3.0242
+###  Gold-Sulfur interaction
+pair_coeff       1 2 lj/cut 3.182  2.586
+###  Gold-CH2 Van der Waals
+pair_coeff       1 3 lj/cut 0.0678 3.42
+###  Gold-CH3 Van der Waals
+pair_coeff       1 4 lj/cut 0.0826 3.42
+
+###  Thiol non-bonded interactions
+pair_coeff       2 2 lj/cut 0.39743 4.25
+pair_coeff       3 3 lj/cut 0.09344 4.009
+pair_coeff       4 4 lj/cut 0.22644 4.009
+
+pair_coeff       2 3 lj/cut 0.1927 4.1295
+pair_coeff       2 4 lj/cut 0.3000 4.1295
+pair_coeff       3 4 lj/cut 0.1455 4.0090
+
+bond_coeff       1 222 1.81
+bond_coeff       2 317 1.53
+bond_coeff       3 317 1.53
+
+angle_coeff      1 62.5 114.4
+angle_coeff      2 60.0 110.01
+angle_coeff      3 60.0 110.01
+
+dihedral_coeff   1 1.600 -0.8670 3.24 0
+dihedral_coeff   2 1.600 -0.8670 3.24 0
+dihedral_coeff   3 1.600 -0.8670 3.24 0
+
+compute          1 all pair morse
+
+thermo           10000
+thermo_style     custom step temp pe etotal evdwl ebond eangle edihed c_1 pxx pyy pzz lx ly lz
+
+shell            mkdir dump 
+
+
+#####################################################################
+###  Running Simulation
+
+
+reset_timestep 0
+
+shell            mkdir config10
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 100000.0 100000.0 100.0
+
+dump 1 all atom 500000 dump/dump10.lammpstrj
+
+dump             2 all cfg 250000 config10/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config20
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 200000.0 200000.0 100.0
+
+dump 1 all atom 500000 dump/dump20.lammpstrj
+
+dump             2 all cfg 250000 config20/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config30
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 300000.0 300000.0 100.0
+
+dump 1 all atom 500000 dump/dump30.lammpstrj
+
+dump             2 all cfg 250000 config30/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config40
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 400000.0 400000.0 100.0
+
+dump 1 all atom 500000 dump/dump40.lammpstrj
+
+dump             2 all cfg 250000 config40/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config50
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 500000.0 500000.0 100.0
+
+dump 1 all atom 500000 dump/dump50.lammpstrj
+
+dump             2 all cfg 250000 config50/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config60
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 600000.0 600000.0 100.0
+
+dump 1 all atom 500000 dump/dump60.lammpstrj
+
+dump             2 all cfg 250000 config60/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config70
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 700000.0 700000.0 100.0
+
+dump 1 all atom 500000 dump/dump70.lammpstrj
+
+dump             2 all cfg 250000 config70/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config80
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 800000.0 800000.0 100.0
+
+dump 1 all atom 500000 dump/dump80.lammpstrj
+
+dump             2 all cfg 250000 config80/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config90
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 900000.0 900000.0 100.0
+
+dump 1 all atom 500000 dump/dump90.lammpstrj
+
+dump             2 all cfg 250000 config90/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config100
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1000000.0 1000000.0 100.0
+
+dump 1 all atom 500000 dump/dump100.lammpstrj
+
+dump             2 all cfg 250000 config100/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config110
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1100000.0 1100000.0 100.0
+
+dump 1 all atom 500000 dump/dump110.lammpstrj
+
+dump             2 all cfg 250000 config110/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config120
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1200000.0 1200000.0 100.0
+
+dump 1 all atom 500000 dump/dump120.lammpstrj
+
+dump             2 all cfg 250000 config120/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config130
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1300000.0 1300000.0 100.0
+
+dump 1 all atom 500000 dump/dump130.lammpstrj
+
+dump             2 all cfg 250000 config130/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config140
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1400000.0 1400000.0 100.0
+
+dump 1 all atom 500000 dump/dump140.lammpstrj
+
+dump             2 all cfg 250000 config140/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config142
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1420000.0 1420000.0 100.0
+
+dump 1 all atom 500000 dump/dump142.lammpstrj
+
+dump             2 all cfg 250000 config142/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config144
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1440000.0 1440000.0 100.0
+
+dump 1 all atom 500000 dump/dump144.lammpstrj
+
+dump             2 all cfg 250000 config144/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config146
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1460000.0 1460000.0 100.0
+
+dump 1 all atom 500000 dump/dump146.lammpstrj
+
+dump             2 all cfg 250000 config146/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config148
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1480000.0 1480000.0 100.0
+
+dump 1 all atom 500000 dump/dump148.lammpstrj
+
+dump             2 all cfg 250000 config148/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config150
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1500000.0 1500000.0 100.0
+
+dump 1 all atom 500000 dump/dump150.lammpstrj
+
+dump             2 all cfg 250000 config150/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config152
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1520000.0 1520000.0 100.0
+
+dump 1 all atom 500000 dump/dump152.lammpstrj
+
+dump             2 all cfg 250000 config152/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config154
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1540000.0 1540000.0 100.0
+
+dump 1 all atom 500000 dump/dump154.lammpstrj
+
+dump             2 all cfg 250000 config154/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config156
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1560000.0 1560000.0 100.0
+
+dump 1 all atom 500000 dump/dump156.lammpstrj
+
+dump             2 all cfg 250000 config156/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config158
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1580000.0 1580000.0 100.0
+
+dump 1 all atom 500000 dump/dump158.lammpstrj
+
+dump             2 all cfg 250000 config158/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+
+shell            mkdir config160
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1600000.0 1600000.0 100.0
+
+dump 1 all atom 500000 dump/dump160.lammpstrj
+
+dump             2 all cfg 250000 config160/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config170
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1700000.0 1700000.0 100.0
+
+dump 1 all atom 500000 dump/dump170.lammpstrj
+
+dump             2 all cfg 250000 config170/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config180
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1800000.0 1800000.0 100.0
+
+dump 1 all atom 500000 dump/dump180.lammpstrj
+
+dump             2 all cfg 250000 config180/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config190
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 1900000.0 1900000.0 100.0
+
+dump 1 all atom 500000 dump/dump190.lammpstrj
+
+dump             2 all cfg 250000 config190/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config200
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2000000.0 2000000.0 100.0
+
+dump 1 all atom 500000 dump/dump200.lammpstrj
+
+dump             2 all cfg 250000 config200/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config210
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2100000.0 2100000.0 100.0
+
+dump 1 all atom 500000 dump/dump210.lammpstrj
+
+dump             2 all cfg 250000 config210/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config220
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2200000.0 2200000.0 100.0
+
+dump 1 all atom 500000 dump/dump220.lammpstrj
+
+dump             2 all cfg 250000 config220/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config230
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2300000.0 2300000.0 100.0
+
+dump 1 all atom 500000 dump/dump230.lammpstrj
+
+dump             2 all cfg 250000 config230/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config240
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2400000.0 2400000.0 100.0
+
+dump 1 all atom 500000 dump/dump240.lammpstrj
+
+dump             2 all cfg 250000 config240/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config250
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2500000.0 2500000.0 100.0
+
+dump 1 all atom 500000 dump/dump250.lammpstrj
+
+dump             2 all cfg 250000 config250/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config260
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2600000.0 2600000.0 100.0
+
+dump 1 all atom 500000 dump/dump260.lammpstrj
+
+dump             2 all cfg 250000 config260/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config270
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2700000.0 2700000.0 100.0
+
+dump 1 all atom 500000 dump/dump270.lammpstrj
+
+dump             2 all cfg 250000 config270/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config280
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2800000.0 2800000.0 100.0
+
+dump 1 all atom 500000 dump/dump280.lammpstrj
+
+dump             2 all cfg 250000 config280/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config290
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 2900000.0 2900000.0 100.0
+
+dump 1 all atom 500000 dump/dump290.lammpstrj
+
+dump             2 all cfg 250000 config290/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config300
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3000000.0 3000000.0 100.0
+
+dump 1 all atom 500000 dump/dump300.lammpstrj
+
+dump             2 all cfg 250000 config300/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config310
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3100000.0 3100000.0 100.0
+
+dump 1 all atom 500000 dump/dump310.lammpstrj
+
+dump             2 all cfg 250000 config310/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config320
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3200000.0 3200000.0 100.0
+
+dump 1 all atom 500000 dump/dump320.lammpstrj
+
+dump             2 all cfg 250000 config320/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config330
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3300000.0 3300000.0 100.0
+
+dump 1 all atom 500000 dump/dump330.lammpstrj
+
+dump             2 all cfg 250000 config330/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config340
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3400000.0 3400000.0 100.0
+
+dump 1 all atom 500000 dump/dump340.lammpstrj
+
+dump             2 all cfg 250000 config340/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+shell            mkdir config350
+
+fix              1 all npt temp 300.0 300.0 100.0 iso 3500000.0 3500000.0 100.0
+
+dump 1 all atom 500000 dump/dump350.lammpstrj
+
+dump             2 all cfg 250000 config350/str.*.cfg mass type xs ys zs id mol
+dump_modify      2 element Au S C C
+dump_modify      2 sort id
+
+run              500000
+
+unfix            1
+undump           1
+undump           2
+
+
+######################################
+# SIMULATION DONE
+print "All done"
